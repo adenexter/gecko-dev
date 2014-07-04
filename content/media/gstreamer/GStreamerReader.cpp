@@ -192,7 +192,7 @@ nsresult GStreamerReader::Init(MediaDecoderReader* aCloneDonor)
   g_object_set(mPlayBin, "buffer-size", 0, nullptr);
   mBus = gst_pipeline_get_bus(GST_PIPELINE(mPlayBin));
 
-#ifndef HAS_NEMO_RESOURCE
+#if !defined(HAS_NEMO_RESOURCE) || GST_CHECK_VERSION(1, 0, 0)
   mVideoSink = gst_parse_bin_from_description("capsfilter name=filter ! "
 #else
   mVideoSink = gst_parse_bin_from_description("colorconv ! capsfilter name=filter ! "
